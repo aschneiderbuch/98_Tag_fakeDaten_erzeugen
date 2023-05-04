@@ -17,17 +17,44 @@ const db = await getDB()
 
 
 // Bestellung
-const order = {
-    date: faker.date.recent(),
-    customer: {
-        id: faker.datatype.uuid(),
-        fullName: faker.name.fullName(),
-        adress: faker.address.streetAddress(true)
 
-    },
-    products: [faker.commerce.product()],
-    sum: faker.finance.amount(),
-    state: faker.helpers.arrayElement( ['offen', 'bezahlt'])
+let orders = []
+
+for (let i = 0; i < 20000; i++ ) {
+// ! dadurch werden 20.000 Bestellungen erstellt mit fakeDaten für die MongoDB
+
+    const order = {
+        date: faker.date.recent(),
+        customer: {
+            id: faker.datatype.uuid(),
+            fullName: faker.name.fullName(),
+            adress: faker.address.streetAddress(true)
+    
+        },
+       // products: [faker.commerce.product()],
+       products: [],
+        sum: faker.finance.amount(),
+        state: faker.helpers.arrayElement( ['offen', 'bezahlt'])
+    }
+
+    // ! hier werden nochmal 1 - 10 verschiedene Produkte der Bestellung hinzugefügt   damit wir nicht nur ein Produkt haben
+    // ! bzw. wir pushen sie nachträglich noch ins Array rein
+    for (let j = 0; j < faker.datatype.number({ min: 1, max:10 }); j++){
+        // oder     j < Math.floor(Math.random() * 10) + 1
+        order.products.push(faker.commerce.product())
+    } 
+
+    orders.push(order)
+
 }
 
-console.log(order)
+
+console.log(orders)
+
+const result = await db.collection('orders').insertMany(orders)
+console.log(result)
+process.exit()
+
+// !     fakeDaten einmalig erzeugen und in die Datenbank schreiben    deshalb ist das hier ein eigenes Script
+// ! mit ./config.js importieren wir die .env Datei haben
+// ! ausführen    mit      npm run db:seed    in package.json "db:seed": "node fakedata/seed.js"    rein
