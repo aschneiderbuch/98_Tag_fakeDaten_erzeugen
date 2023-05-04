@@ -42,7 +42,8 @@ for (const key in params) {    // for schleife durchläuft alle Eigenschaften de
     console.log(p, l, q)
     try {
         const db = await getDB()
-        const result = await db.collection(COL).find( q).skip(p * l ).limit(Number(l)).toArray()     //  skip überspringt die ersten 5 Bestellungen und limit gibt uns nur 5 Bestellungen zurück
+        // -l    damit skip nicht die anzahl der l überspringt sondern   die anzahl der p - l überspringt und somit auf Seite 1 auch die ersten Bestellungen angezeigt werden
+        const result = await db.collection(COL).find( { stateB: 'offen'} ).skip((p -l) * l ).limit(Number(l)).toArray()     //  skip überspringt die ersten 5 Bestellungen und limit gibt uns nur 5 Bestellungen zurück
         res.status(200).json(result)
     } catch (err) {
         console.log(err)
