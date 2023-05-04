@@ -20,7 +20,7 @@ const db = await getDB()
 
 let orders = []
 
-for (let i = 0; i < 20000; i++ ) {
+for (let i = 0; i < 200; i++ ) {
 // ! dadurch werden 20.000 Bestellungen erstellt mit fakeDaten für die MongoDB
 
     const order = {
