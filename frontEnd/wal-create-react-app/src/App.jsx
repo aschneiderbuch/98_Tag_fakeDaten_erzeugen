@@ -1,4 +1,6 @@
+// import './config.js'
 import { useEffect, useState } from 'react'
+
 
 import { OrderItem } from './components/OrderItem.jsx';
 import './App.css';
@@ -10,12 +12,14 @@ function App() {
   const [page, setPage] = useState(0)
   const [limit, setLimit] = useState(5)
 
-
+  const  BACKEND_PORT =  process.env.REACT_APP_BACKEND_PORT
+  const BACKEND_PFAD = process.env.REACT_APP_BACKEND_PFAD
   // fetch um Anzahl der offenen Bestellungen zu holen 
   // mit query-Parameter state=offen
   useEffect(() => {
     const getCount = async () => {
-      const response = await fetch('http://localhost:9999/api/v1/orders?state=offen')
+
+      const response = await fetch(`http://localhost:${BACKEND_PORT}${BACKEND_PFAD}/orders?state=offen`)
       const data = await response.json()
       console.log(data)
       setCount(data)    // wenn als Object geschickt, dann hier  setCount( Number( data.count ) )
@@ -31,7 +35,8 @@ function App() {
   const getOrders = async () => {
 
     // Variabel   page     und   limit
-    const response = await fetch(`http://localhost:9999/api/v1/offen?state=offen&p=${page}&l=${limit}`)
+    
+    const response = await fetch(`http://localhost:${BACKEND_PORT}${BACKEND_PFAD}/offen?state=offen&p=${page}&l=${limit}`)
     const data = await response.json()
     console.log(data)
     calcPages()
