@@ -7,7 +7,7 @@ const client = new MongoClient(URL)
 
 let db
 export const getDB = async () => {
-    if (db) return 
+    if (db) return db
     await client.connect()
     db = client.db(DB)
     return db
