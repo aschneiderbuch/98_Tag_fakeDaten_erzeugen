@@ -14,7 +14,7 @@ export const orderCount = async (req, res) => {
         const q = req.query
         const db = await getDB()
         const result = await db.collection(COL).countDocuments(q);
-        res.status(200).json(result)
+        res.status(200).json(result)  // oder als Obejkt schicken .json( { count: result } )
     } catch (err) {
         console.log(err)
         res.status(500).json( { message: `Fehler bei orderCount: ${err.message}` } , 596 )
@@ -43,7 +43,7 @@ for (const key in params) {    // for schleife durchläuft alle Eigenschaften de
     try {
         const db = await getDB()
         // -l    damit skip nicht die anzahl der l überspringt sondern   die anzahl der p - l überspringt und somit auf Seite 1 auch die ersten Bestellungen angezeigt werden
-        const result = await db.collection(COL).find( { stateB: 'offen'} ).skip((p -l) * l ).limit(Number(l)).toArray()     //  skip überspringt die ersten 5 Bestellungen und limit gibt uns nur 5 Bestellungen zurück
+        const result = await db.collection(COL).find(  q ).skip(p  * l ).limit(Number(l)).toArray()     //  skip überspringt die ersten 5 Bestellungen und limit gibt uns nur 5 Bestellungen zurück
         res.status(200).json(result)
     } catch (err) {
         console.log(err)

@@ -10,6 +10,10 @@ export const OrderItem = ({ order }) => {
             <p>Datum: {order.date} </p>
             <p>Status: {order.state} </p>
             <p>Summe: {order.sum} </p>
+            <p>Products: {order.products.map((product, index) => {
+               return <p key={index}>{product}</p>
+            })}
+            </p>
         </section>
     )
 }
