@@ -59,27 +59,31 @@ function App() {
   const displayPages = () => {
     const pagesArray = []
     for (let i = 0; i < pages; i++) {
-      pagesArray.push(<p key={i} onClick={() => { setPage(i + 1) }} >  {i + 1}</p>)
+      pagesArray.push(<button key={i} onClick={() => { setPage(i + 1) }} >  {i + 1}</button>)
     }
+    return pagesArray
   }
 
   return (
     <section className="App">
 
-<h1>Merci-Shop</h1>
+      <h1>Merci-Shop</h1>
 
-{orders.map( (order, key ) => {
-  return <OrderItem key={key} order={order} />
-})}
+      {orders.map((order, key) => {
+        return <OrderItem key={key} order={order} />
+      })}
 
-<button onClick={ () => setPage(prev => ++prev)} > next </button> 
-<p>{page }</p>
+      <button onClick={() => setPage(prev => ++prev)} > next </button>
+      <p>{page}</p>
 
-<button onClick={ () => setLimit(5)} >5</button>
-<button onClick={ () => setLimit(10)} >10</button>
-<button onClick={ () => setLimit(100)} >100</button>
+      <button onClick={() => setLimit(5)} >5</button>
+      <button onClick={() => setLimit(10)} >10</button>
+      <button onClick={() => setLimit(100)} >100</button>
 
-{displayPages()}
+     <p> 
+      <p> Navi Pages</p>
+     {displayPages()}
+      </p> 
 
       <h4>Offene Bestellungen: {count}</h4>
     </section>

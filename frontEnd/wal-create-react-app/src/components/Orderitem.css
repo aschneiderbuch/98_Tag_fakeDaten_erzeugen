@@ -1,0 +1,13 @@
+.orderItem > :nth-of-type(4) p {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+
+p {
+  justify-content: space-around;
+  display: flex;
+  align-items: baseline;
+  margin: auto;
+  width: 40vw;
+}/*# sourceMappingURL=Orderitem.css.map */
